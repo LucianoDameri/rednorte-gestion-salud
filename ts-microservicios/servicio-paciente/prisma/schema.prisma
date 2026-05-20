@@ -1,0 +1,24 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Solo datos personales del paciente.
+// Las solicitudes y lista de espera viven en sus propios microservicios.
+model Paciente {
+  id        Int      @id @default(autoincrement())
+  rut       String   @unique @db.VarChar(15)
+  nombre    String   @db.VarChar(80)
+  apellido  String   @db.VarChar(80)
+  telefono  String?  @db.VarChar(20)
+  email     String?  @db.VarChar(120)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("paciente")
+}

@@ -1,0 +1,24 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Pedido médico que hace un paciente.
+// Solo guarda IDs de paciente y especialidad (no los datos completos).
+// El BFF se encarga de enriquecer con nombres desde los otros servicios.
+model Solicitud {
+  id             Int      @id @default(autoincrement())
+  pacienteId     Int                             // ID del microservicio-paciente
+  especialidadId Int                             // ID de la especialidad solicitada
+  tipoAtencion   String   @db.VarChar(30)        // CONSULTA | PROCEDIMIENTO | CIRUGIA | DIAGNOSTICO
+  descripcion    String?  @db.VarChar(500)       // Motivo o descripción del pedido
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("solicitud")
+}

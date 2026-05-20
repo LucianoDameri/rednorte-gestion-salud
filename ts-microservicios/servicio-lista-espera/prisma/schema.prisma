@@ -1,0 +1,26 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Entrada en la cola de espera para una solicitud médica.
+// Gestiona el turno, prioridad y estado de atención.
+model ListaEspera {
+  id              Int       @id @default(autoincrement())
+  solicitudId     Int       @unique        // Una solicitud tiene solo un turno en la cola
+  pacienteId      Int                      // Referencia al microservicio-paciente
+  prioridad       String    @default("NORMAL")   @db.VarChar(20)   // URGENTE | ALTA | NORMAL | BAJA
+  estado          String    @default("EN_ESPERA") @db.VarChar(20)  // EN_ESPERA | ASIGNADA | ATENDIDA | CANCELADA
+  numeroTurno     Int?                     // Número de turno asignado en la cola
+  fechaEstimada   DateTime?               // Fecha estimada de atención
+  observaciones   String?   @db.VarChar(500)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@map("lista_espera")
+}
