@@ -1,4 +1,5 @@
 /**
+<<<<<<< HEAD
  * ╔═══════════════════════════════════════════════════════════════════════════╗
  * ║              CIRCUIT BREAKER - SaludRedNorte                             ║
  * ║              Usando cockatiel (Resilience4j-like para Node.js)            ║
@@ -65,12 +66,22 @@ const metrics: CircuitBreakerMetrics = {
 // ─── Política de Retry con Backoff Exponencial ────────────────────────────────
 // Antes de que el circuit breaker actúe, reintenta hasta 2 veces
 // con espera exponencial (100ms, 200ms) ante cualquier error.
+=======
+ * Circuit Breaker — servicio-paciente (cockatiel v3)
+ * Patrón Circuit Breaker con Retry para llamadas a servicios externos.
+ *
+ *  CLOSED ──(5 fallos)──► OPEN ──(10s)──► HALF-OPEN ──(éxito)──► CLOSED
+ */
+
+import { retry, circuitBreaker, ConsecutiveBreaker, ExponentialBackoff, handleAll, wrap } from 'cockatiel';
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
 
 const retryPolicy = retry(handleAll, {
   maxAttempts: 2,
   backoff: new ExponentialBackoff({ initialDelay: 100, maxDelay: 500 }),
 });
 
+<<<<<<< HEAD
 retryPolicy.onRetry(({ reason }) => {
   console.warn(`[RetryPolicy] Reintentando llamada. Causa: ${reason?.message}`);
 });
@@ -177,4 +188,21 @@ export function resetCircuitBreaker(): void {
   // cockatiel no expone un método de reset directo en ConsecutiveBreaker,
   // pero podemos loguear para fines de monitoring.
   console.warn('[CircuitBreaker] Reset manual solicitado (solo logging — use reinicio del servicio para reset completo)');
+=======
+const cbPolicy = circuitBreaker(handleAll, {
+  halfOpenAfter: 10_000,
+  breaker: new ConsecutiveBreaker(5),
+});
+
+cbPolicy.onBreak(()     => console.error('[CircuitBreaker] 🔴 ABIERTO'));
+cbPolicy.onReset(()     => console.log('[CircuitBreaker] 🟢 CERRADO'));
+cbPolicy.onHalfOpen(()  => console.warn('[CircuitBreaker] 🟡 SEMI-ABIERTO'));
+
+/** Política combinada: el CB envuelve al Retry */
+export const resilientPolicy = wrap(cbPolicy, retryPolicy);
+
+/** Ejecuta fn con Retry + Circuit Breaker */
+export async function withResilience<T>(fn: () => Promise<T>): Promise<T> {
+  return resilientPolicy.execute(fn);
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
 }

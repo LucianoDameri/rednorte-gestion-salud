@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useState, useCallback } from 'react';
 import { circuitBreakerService } from '../services/api';
 import type { CircuitBreakerStatus } from '../types';
@@ -118,4 +119,10 @@ export default function CircuitBreakerWidget() {
       </div>
     </div>
   );
+=======
+// Widget eliminado — el Circuit Breaker está implementado en el BFF (cockatiel).
+// El estado de los servicios se monitorea desde ServiceStatusBar vía /health.
+export default function CircuitBreakerWidget() {
+  return null;
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
 }

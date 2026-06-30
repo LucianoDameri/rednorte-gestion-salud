@@ -1,12 +1,22 @@
 import { Router, Request, Response } from 'express';
 import { listaEsperaClient, extractError } from '../clients/serviceClients';
+<<<<<<< HEAD
+=======
+import { withResilience, listaEsperaPolicy } from '../resilience/circuitBreaker';
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
 
 const router = Router();
 
 // GET /bff/lista-espera?estado=EN_ESPERA&prioridad=URGENTE&pacienteId=X
 router.get('/', async (req: Request, res: Response) => {
   try {
+<<<<<<< HEAD
     const { data } = await listaEsperaClient.get('/lista-espera', { params: req.query });
+=======
+    const { data } = await withResilience(listaEsperaPolicy, () =>
+      listaEsperaClient.get('/lista-espera', { params: req.query })
+    );
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
     res.json(data);
   } catch (error) {
     res.status(502).json({ error: 'Error al obtener lista de espera', detalle: extractError(error) });
@@ -16,7 +26,13 @@ router.get('/', async (req: Request, res: Response) => {
 // GET /bff/lista-espera/resumen
 router.get('/resumen', async (_req, res: Response) => {
   try {
+<<<<<<< HEAD
     const { data } = await listaEsperaClient.get('/lista-espera/resumen');
+=======
+    const { data } = await withResilience(listaEsperaPolicy, () =>
+      listaEsperaClient.get('/lista-espera/resumen')
+    );
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
     res.json(data);
   } catch (error) {
     res.status(502).json({ error: 'Error al obtener resumen', detalle: extractError(error) });
@@ -26,7 +42,13 @@ router.get('/resumen', async (_req, res: Response) => {
 // GET /bff/lista-espera/:id
 router.get('/:id', async (req: Request, res: Response) => {
   try {
+<<<<<<< HEAD
     const { data } = await listaEsperaClient.get(`/lista-espera/${req.params.id}`);
+=======
+    const { data } = await withResilience(listaEsperaPolicy, () =>
+      listaEsperaClient.get(`/lista-espera/${req.params.id}`)
+    );
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
     res.json(data);
   } catch (error) {
     const status = (error as any)?.response?.status || 502;
@@ -37,7 +59,13 @@ router.get('/:id', async (req: Request, res: Response) => {
 // PUT /bff/lista-espera/:id — cambiar estado, prioridad, turno
 router.put('/:id', async (req: Request, res: Response) => {
   try {
+<<<<<<< HEAD
     const { data } = await listaEsperaClient.put(`/lista-espera/${req.params.id}`, req.body);
+=======
+    const { data } = await withResilience(listaEsperaPolicy, () =>
+      listaEsperaClient.put(`/lista-espera/${req.params.id}`, req.body)
+    );
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
     res.json(data);
   } catch (error) {
     const status = (error as any)?.response?.status || 502;
@@ -48,7 +76,13 @@ router.put('/:id', async (req: Request, res: Response) => {
 // DELETE /bff/lista-espera/:id
 router.delete('/:id', async (req: Request, res: Response) => {
   try {
+<<<<<<< HEAD
     const { data } = await listaEsperaClient.delete(`/lista-espera/${req.params.id}`);
+=======
+    const { data } = await withResilience(listaEsperaPolicy, () =>
+      listaEsperaClient.delete(`/lista-espera/${req.params.id}`)
+    );
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
     res.json(data);
   } catch (error) {
     const status = (error as any)?.response?.status || 502;

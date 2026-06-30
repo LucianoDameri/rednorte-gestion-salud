@@ -2,6 +2,13 @@ import { Request, Response } from 'express';
 import { pacienteService } from '../services/paciente.service';
 import { Prisma } from '@prisma/client';
 
+<<<<<<< HEAD
+=======
+// @types/express v5 tipea req.params como string | string[]
+// p() fuerza el primer valor a string
+const p = (v: unknown): string => (Array.isArray(v) ? v[0] : String(v ?? ''));
+
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
 export class PacienteController {
   async listar(_req: Request, res: Response): Promise<void> {
     try {
@@ -12,9 +19,15 @@ export class PacienteController {
     }
   }
 
+<<<<<<< HEAD
   async obtener(req: Request<{ id: string }>, res: Response): Promise<void> {
     try {
       const id = parseInt(req.params.id);
+=======
+  async obtener(req: Request, res: Response): Promise<void> {
+    try {
+      const id = parseInt(p(req.params.id));
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
       if (isNaN(id)) { res.status(400).json({ error: 'ID inválido' }); return; }
       const paciente = await pacienteService.findById(id);
       paciente ? res.json(paciente) : res.status(404).json({ error: 'Paciente no encontrado' });
@@ -23,9 +36,15 @@ export class PacienteController {
     }
   }
 
+<<<<<<< HEAD
   async obtenerPorRut(req: Request<{ rut: string }>, res: Response): Promise<void> {
     try {
       const paciente = await pacienteService.findByRut(req.params.rut);
+=======
+  async obtenerPorRut(req: Request, res: Response): Promise<void> {
+    try {
+      const paciente = await pacienteService.findByRut(p(req.params.rut));
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
       paciente ? res.json(paciente) : res.status(404).json({ error: 'Paciente no encontrado' });
     } catch {
       res.status(500).json({ error: 'Error al obtener paciente por RUT' });
@@ -50,9 +69,15 @@ export class PacienteController {
     }
   }
 
+<<<<<<< HEAD
   async actualizar(req: Request<{ id: string }>, res: Response): Promise<void> {
     try {
       const id = parseInt(req.params.id);
+=======
+  async actualizar(req: Request, res: Response): Promise<void> {
+    try {
+      const id = parseInt(p(req.params.id));
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
       if (isNaN(id)) { res.status(400).json({ error: 'ID inválido' }); return; }
       if (!(await pacienteService.exists(id))) {
         res.status(404).json({ error: 'Paciente no encontrado' }); return;
@@ -65,9 +90,15 @@ export class PacienteController {
     }
   }
 
+<<<<<<< HEAD
   async eliminar(req: Request<{ id: string }>, res: Response): Promise<void> {
     try {
       const id = parseInt(req.params.id);
+=======
+  async eliminar(req: Request, res: Response): Promise<void> {
+    try {
+      const id = parseInt(p(req.params.id));
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
       if (isNaN(id)) { res.status(400).json({ error: 'ID inválido' }); return; }
       if (!(await pacienteService.exists(id))) {
         res.status(404).json({ error: 'Paciente no encontrado' }); return;

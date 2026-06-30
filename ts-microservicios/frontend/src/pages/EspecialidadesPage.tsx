@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useState } from 'react';
 import { especialidadService } from '../services/api';
 import type { Especialidad } from '../types';
@@ -153,3 +154,10 @@ const tableStyle: React.CSSProperties = {
 };
 const thStyle: React.CSSProperties = { padding: '10px 12px', textAlign: 'left', fontWeight: 600, color: '#374151', fontSize: 12 };
 const tdStyle: React.CSSProperties = { padding: '10px 12px' };
+=======
+// Página eliminada — la arquitectura actual no tiene servicio de especialidades independiente.
+// Las especialidades se gestionan dentro de las solicitudes médicas.
+export default function EspecialidadesPage() {
+  return null;
+}
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443

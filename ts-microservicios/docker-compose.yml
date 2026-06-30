@@ -1,10 +1,17 @@
 version: '3.8'
 
+<<<<<<< HEAD
 services:
 
   #Base de datos
   mysql:
     image: mysql:8.0
+=======
+
+services:
+  mysql:
+    image: mysql:8.0          
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
     container_name: saludrednorte-mysql
     restart: unless-stopped
     environment:
@@ -20,6 +27,7 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prednorte123"]
       interval: 10s
       timeout: 5s
+<<<<<<< HEAD
       retries: 10
 
   #Microservicio Pacientes
@@ -93,6 +101,9 @@ services:
       - "5173:5173"
     depends_on:
       - bff
+=======
+      retries: 5
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
 
 volumes:
   mysql_data:

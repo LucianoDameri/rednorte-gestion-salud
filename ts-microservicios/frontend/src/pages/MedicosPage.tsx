@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useState } from 'react';
 import { medicoService, especialidadService } from '../services/api';
 import type { Medico, Especialidad } from '../types';
@@ -138,3 +139,9 @@ const inputStyle: React.CSSProperties = { border: '1px solid #d1d5db', borderRad
 const tableStyle: React.CSSProperties = { width: '100%', borderCollapse: 'collapse', fontSize: 13, background: 'white', border: '1px solid #e5e7eb', borderRadius: 8, overflow: 'hidden' };
 const thStyle: React.CSSProperties = { padding: '10px 12px', textAlign: 'left', fontWeight: 600, color: '#374151', fontSize: 12 };
 const tdStyle: React.CSSProperties = { padding: '10px 12px' };
+=======
+// Página eliminada — la arquitectura actual no tiene servicio de médicos independiente.
+export default function MedicosPage() {
+  return null;
+}
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443

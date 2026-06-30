@@ -6,22 +6,30 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
+<<<<<<< HEAD
     "start": "node dist/index.js",
     "test": "node ../tests/test-bff.js",
     "test:jest": "jest --coverage",
     "test:watch": "jest --watch"
+=======
+    "start": "node dist/index.js"
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
   },
   "dependencies": {
     "axios": "^1.7.9",
     "cockatiel": "^3.2.1",
     "cors": "^2.8.5",
     "express": "^4.21.2",
+<<<<<<< HEAD
     "jsonwebtoken": "^9.0.2",
+=======
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
     "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+<<<<<<< HEAD
     "@types/jsonwebtoken": "^9.0.7",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.9.0",
@@ -42,5 +50,11 @@
       "!src/**/__tests__/**",
       "!src/index.ts"
     ]
+=======
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.9.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.6.3"
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
   }
 }

@@ -5,8 +5,11 @@ import pacienteRoutes from './routes/paciente.routes';
 import solicitudRoutes from './routes/solicitud.routes';
 import listaEsperaRoutes from './routes/listaEspera.routes';
 import { pacienteClient, solicitudClient, listaEsperaClient } from './clients/serviceClients';
+<<<<<<< HEAD
 import { login } from './auth/authController';
 import { requireAuth, requireRol } from './middleware/authMiddleware';
+=======
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,9 +18,12 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 
+<<<<<<< HEAD
 // ─── Auth (público) ──────────────────────────────────────────────────────────
 app.post('/auth/login', login);
 
+=======
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
 // ─── Health Check del BFF + estado de microservicios downstream ──────────────
 app.get('/health', async (_req, res) => {
   const checkService = async (client: typeof pacienteClient, name: string) => {
@@ -46,6 +52,7 @@ app.get('/health', async (_req, res) => {
   });
 });
 
+<<<<<<< HEAD
 // ─── Rutas BFF protegidas con JWT ─────────────────────────────────────────────
 // Pacientes: CRUD completo para RECEPCIONISTA, solo GET para MEDICO
 app.use('/bff/paciente', requireAuth, pacienteRoutes);
@@ -60,6 +67,12 @@ app.use('/bff/lista-espera', requireAuth, listaEsperaRoutes);
 app.get('/auth/me', requireAuth, (req, res) => {
   res.json({ usuario: req.usuario });
 });
+=======
+// ─── Rutas BFF ────────────────────────────────────────────────────────────────
+app.use('/bff/paciente', pacienteRoutes);
+app.use('/bff/solicitud', solicitudRoutes);
+app.use('/bff/lista-espera', listaEsperaRoutes);
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
 
 // ─── 404 ──────────────────────────────────────────────────────────────────────
 app.use((_req, res) => res.status(404).json({ error: 'Ruta no encontrada en el BFF' }));
@@ -67,11 +80,17 @@ app.use((_req, res) => res.status(404).json({ error: 'Ruta no encontrada en el B
 // ─── Start ────────────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
   console.log(`🌐 BFF SaludRedNorte en http://localhost:${PORT}`);
+<<<<<<< HEAD
   console.log(`   → POST /auth/login           → autenticación JWT`);
+=======
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
   console.log(`   → /bff/paciente      → servicio-paciente   (:3001)`);
   console.log(`   → /bff/solicitud     → servicio-solicitudes (:3002)`);
   console.log(`   → /bff/lista-espera  → servicio-lista-espera (:3003)`);
   console.log(`   → /health            → estado de todos los servicios`);
 });
+<<<<<<< HEAD
 
 export { app };
+=======
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443

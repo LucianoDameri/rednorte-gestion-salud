@@ -1,13 +1,17 @@
 /**
  * El frontend SOLO habla con el BFF.
  * El BFF (puerto 3000) coordina con los 3 microservicios internamente.
+<<<<<<< HEAD
  * El token JWT se adjunta automáticamente via axios.defaults (seteado en AuthContext).
+=======
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
  */
 import axios from 'axios';
 import type { Paciente, Solicitud, ListaEspera, BffHealth } from '../types';
 
 const bff = axios.create({ baseURL: '/bff' });
 
+<<<<<<< HEAD
 // Interceptor: adjunta el token JWT si está disponible en localStorage
 bff.interceptors.request.use(config => {
   const token = localStorage.getItem('saludrednorte_token');
@@ -18,6 +22,8 @@ bff.interceptors.request.use(config => {
   return config;
 });
 
+=======
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
 // ─── Pacientes ─────────────────────────────────────────────────────────────────
 export const pacienteApi = {
   listar: () => bff.get<Paciente[]>('/paciente').then(r => r.data),
@@ -54,5 +60,9 @@ export const listaEsperaApi = {
 
 // ─── Health del BFF ────────────────────────────────────────────────────────────
 export const healthApi = {
+<<<<<<< HEAD
   check: () => axios.get<BffHealth>('/health').then(r => r.data),
+=======
+  check: () => axios.get<BffHealth>('http://localhost:3000/health').then(r => r.data),
+>>>>>>> f70520dfad9a3799b0358bab38f1df4597f8b443
 };
