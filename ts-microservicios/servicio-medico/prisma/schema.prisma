@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Medico {
+  id             Int      @id @default(autoincrement())
+  rut            String   @unique @db.VarChar(15)
+  nombre         String   @db.VarChar(80)
+  apellido       String   @db.VarChar(80)
+  telefono       String?  @db.VarChar(20)
+  email          String   @unique @db.VarChar(120)
+  especialidadId Int
+  activo         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("medico")
+}

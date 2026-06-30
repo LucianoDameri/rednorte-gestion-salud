@@ -1,0 +1,19 @@
+{
+  "name": "saludrednorte-root",
+  "version": "1.0.0",
+  "description": "Script raíz para levantar todos los servicios de SaludRedNorte",
+  "scripts": {
+    "start": "concurrently --kill-others-on-fail --prefix-colors \"bgBlue,bgGreen,bgYellow,bgMagenta,bgCyan\" --names \"PACIENTE,SOLICITUD,LISTA,BFF,FRONTEND\" \"npm run dev --prefix servicio-paciente\" \"npm run dev --prefix servicio-solicitudes\" \"npm run dev --prefix servicio-lista-espera\" \"npm run dev --prefix bff\" \"npm run dev --prefix frontend\"",
+    "install:all": "npm install --prefix servicio-paciente && npm install --prefix servicio-solicitudes && npm install --prefix servicio-lista-espera && npm install --prefix bff && npm install --prefix frontend",
+    "migrate": "cd servicio-paciente && npx prisma migrate dev --name init && cd ../servicio-solicitudes && npx prisma migrate dev --name init && cd ../servicio-lista-espera && npx prisma migrate dev --name init",
+    "seed": "npm run prisma:seed --prefix servicio-paciente && npm run prisma:seed --prefix servicio-solicitudes && npm run prisma:seed --prefix servicio-lista-espera",
+    "setup": "npm run install:all && npm run migrate && npm run seed",
+    "test:bff": "node tests/test-bff.js",
+    "test:servicios": "node tests/test-microservicios.js",
+    "test": "node tests/test-bff.js && node tests/test-microservicios.js",
+    "test:frontend": "npm test --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

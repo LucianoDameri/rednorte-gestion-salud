@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: infraestructura-gateway
+
+  cloud:
+    gateway:
+      routes:
+        # Ruta al microservicio de Pacientes
+        - id: paciente_service
+          uri: lb://businessdomain-paciente
+          predicates:
+            - Path=/paciente/**
+          filters:
+            - AuthenticationFilterinig
+
+        # Ruta al microservicio de Especialidades
+        - id: especialidad_service
+          uri: lb://businessdomain-especialidad
+          predicates:
+            - Path=/especialidad/**
+          filters:
+            - AuthenticationFilterinig
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
